@@ -35,10 +35,13 @@ async def server(websocket, path):
             elif(Mode == "Move"):
                 for user in connected:
                     if user == websocket:
-                        if userDetails[user]["Map"] == userDetails[websocket]["Map"]:
-                            Data = message["Data"]
-                            data = {'userId': userDetails[websocket]["userId"], 'Mode': "Move", 'Data': Data}
-                            await user.send(json.dumps(data))
+                        try:
+                            if userDetails[user]["Map"] == userDetails[websocket]["Map"]:
+                                Data = message["Data"]
+                                data = {'userId': userDetails[websocket]["userId"], 'Mode': "Move", 'Data': Data}
+                                await user.send(json.dumps(data))
+                        except:
+                            continue
                 
 
             
