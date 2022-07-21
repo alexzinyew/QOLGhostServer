@@ -25,7 +25,7 @@ async def main():
 
     async with websockets.serve(
         server,
-        host="localhost",
+        host="",
         port=int(os.environ["PORT"]),
     ):
         await stop
