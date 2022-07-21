@@ -1,11 +1,6 @@
 import asyncio
-from pydoc import doc
-from statistics import mode
 import websockets
 import json
-import signal
-import os
-import pprint
 
 userDetails = {}
 
