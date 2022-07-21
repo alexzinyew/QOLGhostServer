@@ -1,6 +1,7 @@
 import asyncio
 import websockets
 import json
+import os
 
 userDetails = {}
 
@@ -47,7 +48,7 @@ async def server(websocket, path):
         del userDetails[websocket]
 
 async def main():
-    async with websockets.serve(server, "localhost", 3000):
+    async with websockets.serve(server, "", int(os.environ["PORT"])):
         await asyncio.Future()
 
 if __name__ == "__main__":
