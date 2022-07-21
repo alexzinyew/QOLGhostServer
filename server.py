@@ -30,13 +30,15 @@ async def server(websocket, path):
                     if user != websocket:
                         data = {'Mode': 'Disconnect', 'userId': userDetails[websocket]["userId"],
                          'Map': userDetails[websocket]["Map"]}
+                        await user.send(json.dumps(data))
 
             elif(Mode == "Move"):
                 for user in connected:
                     if user != websocket:
                         if userDetails[user]["Map"] == userDetails[websocket]["Map"]: #On the same map
                             Data = message["Data"]
-                            user.send(json.dumps(userId,Mode,Data))
+                            data = {'userId': userDetails[websocket]["userId"], 'Mode': "Move", 'Data': Data}
+                            await user.send(json.dumps(data))
                 
 
             
@@ -46,7 +48,7 @@ async def server(websocket, path):
         for user in connected:
             if user != websocket:
                 data = {'Mode': 'Disconnect', 'userId': userDetails[websocket]["userId"]}
-                user.send(json.dumps(data))
+                await user.send(json.dumps(data))
 
         connected.remove(websocket)
         del userDetails[websocket]
