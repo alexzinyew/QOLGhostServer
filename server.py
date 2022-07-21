@@ -21,6 +21,8 @@ async def server(websocket, path):
             userDetails[websocket]["userId"] = userId
             userDetails[websocket]["Map"] = Map
 
+            print(message)
+
             if(Mode == "mapChange"):
                 for user in connected:
                     if user != websocket:
