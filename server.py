@@ -18,10 +18,12 @@ async def server(websocket, path):
             Map = message["Map"]
             Mode = message["Mode"]
 
+            userDetails[websocket] = {}
             userDetails[websocket]["userId"] = userId
             userDetails[websocket]["Map"] = Map
 
             print(message)
+            print(userDetails)
 
             if(Mode == "mapChange"):
                 for user in connected:
