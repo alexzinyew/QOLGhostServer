@@ -1,7 +1,13 @@
 import asyncio
+import string
 import websockets
 import json
 import os
+
+config = open("config.txt",'r').read()
+coopServer = False
+if "coopserver" in config:
+    coopServer = True
 
 userDetails = {}
 
@@ -9,7 +15,18 @@ connected = set()
 
 async def server(websocket, path):
 
-    connected.add(websocket)
+    if coopServer:
+        if len(connected) > 2:
+            data = {}
+            data["Status"] = "Full"
+            await websocket.send(json.dumps(data))
+        else:
+            connected.add(websocket)
+            data = {}
+            data["Status"] = "Connected"
+            data["Role"] = len(connected)
+            await websocket.send(json.dumps(data))
+
     print("Client connected!") 
     try:
         async for message in websocket:
